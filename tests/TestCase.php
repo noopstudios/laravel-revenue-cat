@@ -34,13 +34,13 @@ abstract class TestCase extends Orchestra
         ]);
 
         // Package configuration
-        config()->set('cashier-revenue-cat.api.key', 'test-api-key');
-        config()->set('cashier-revenue-cat.api.project_id', 'test-project-id');
-        config()->set('cashier-revenue-cat.webhook.secret', 'test-webhook-secret');
-        config()->set('cashier-revenue-cat.model.user', User::class);
+        config()->set('revenue-cat.api.key', 'test-api-key');
+        config()->set('revenue-cat.api.project_id', 'test-project-id');
+        config()->set('revenue-cat.webhook.secret', 'test-webhook-secret');
+        config()->set('revenue-cat.model.user', User::class);
     }
 
-    protected function createCustomer($description = 'peter'): User
+    protected function createCustomer($description = 'fabio'): User
     {
         return User::create([
             'email' => "{$description}@example.com",
