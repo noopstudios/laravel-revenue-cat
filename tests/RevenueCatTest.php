@@ -125,27 +125,7 @@ class RevenueCatTest extends TestCase
     }
 
     #[Test]
-    public function it_can_get_customer_history()
-    {
-        $this->mockHandler->append(new Response(200, [], json_encode([
-            'transactions' => [
-                [
-                    'transaction_id' => 'test-transaction',
-                    'product_id' => 'test-product',
-                    'purchase_date' => '2024-03-23T00:00:00Z',
-                    'expiration_date' => '2024-04-23T00:00:00Z',
-                ],
-            ],
-        ])));
-
-        $response = RevenueCat::getCustomerHistory('test-user');
-
-        $this->assertArrayHasKey('transactions', $response);
-        $this->assertEquals('test-transaction', $response['transactions'][0]['transaction_id']);
-    }
-
-    #[Test]
-    public function it_can_get_customer_entitlements()
+    public function it_can_get_customer_active_entitlements()
     {
         $this->mockHandler->append(new Response(200, [], json_encode([
             'entitlements' => [
@@ -161,7 +141,7 @@ class RevenueCatTest extends TestCase
             ],
         ])));
 
-        $response = RevenueCat::getCustomerEntitlements('test-user');
+        $response = RevenueCat::getCustomerActiveEntitlements('test-user');
 
         $this->assertArrayHasKey('entitlements', $response);
         $this->assertArrayHasKey('premium', $response['entitlements']);

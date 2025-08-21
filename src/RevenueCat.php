@@ -78,15 +78,6 @@ class RevenueCat
         return $this->get("/v2/projects/{$this->projectId}/products");
     }
 
-    public function getCustomerHistory(string $appUserId, array $params = []): array
-    {
-        $uri = "/v2/projects/{$this->projectId}/customers/{$appUserId}/history";
-        if (! empty($params)) {
-            $uri .= '?'.http_build_query($params);
-        }
-
-        return $this->get($uri);
-    }
 
     public function getCustomerActiveEntitlements(string $appUserId): array
     {
