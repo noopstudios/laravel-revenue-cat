@@ -173,25 +173,100 @@ class RevenueCatTest extends TestCase
     public function it_can_get_user_subscriptions()
     {
         $this->mockHandler->append(new Response(200, [], json_encode([
-            'subscriber' => [
-                'entitlements' => [
-                    'premium' => [
-                        'identifier' => 'premium',
-                        'is_active' => true,
-                        'will_renew' => true,
-                        'period_type' => 'NORMAL',
-                        'latest_purchase_date' => '2024-03-23T00:00:00Z',
-                        'original_purchase_date' => '2024-03-23T00:00:00Z',
-                        'expiration_date' => '2024-04-23T00:00:00Z',
-                    ],
-                ],
+            'items' => [
+                [
+                    'entitlement_id' => 'premium',
+                    'expires_at' => 1755778147000,
+                    'object' => 'customer.active_entitlement'
+                ]
             ],
+            'next_page' => null,
+            'object' => 'list',
+            'url' => 'https://api.revenuecat.com/v2/projects/test/customers/test-user/active_entitlements'
         ])));
 
         $response = RevenueCat::getUserSubscriptions('test-user');
 
-        $this->assertArrayHasKey('premium', $response);
-        $this->assertTrue($response['premium']['is_active']);
+        $this->assertCount(1, $response);
+        $this->assertEquals('premium', $response[0]['entitlement_id']);
+        $this->assertEquals('customer.active_entitlement', $response[0]['object']);
+    }
+
+    #[Test]
+    public function it_can_get_customer_active_subscription()
+    {
+        $this->mockHandler->append(new Response(200, [], json_encode([
+            'items' => [
+                [
+                    'auto_renewal_status' => 'will_not_renew',
+                    'country' => 'US',
+                    'current_period_ends_at' => 1755777584000,
+                    'current_period_starts_at' => 1755777338000,
+                    'customer_id' => 'test-user',
+                    'entitlements' => ['items' => []],
+                    'environment' => 'sandbox',
+                    'gives_access' => false,
+                    'id' => 'sub1',
+                    'status' => 'expired',
+                    'product_id' => 'prod1'
+                ],
+                [
+                    'auto_renewal_status' => 'will_renew',
+                    'country' => 'US',
+                    'current_period_ends_at' => 1755778747000,
+                    'current_period_starts_at' => 1755778447000,
+                    'customer_id' => 'test-user',
+                    'entitlements' => [
+                        'items' => [
+                            [
+                                'id' => 'entl123',
+                                'lookup_key' => 'Pro'
+                            ]
+                        ]
+                    ],
+                    'environment' => 'sandbox',
+                    'gives_access' => true,
+                    'id' => 'sub2',
+                    'status' => 'active',
+                    'product_id' => 'prod2'
+                ]
+            ],
+            'next_page' => null,
+            'object' => 'list',
+            'url' => 'https://api.revenuecat.com/v2/projects/test/customers/test-user/subscriptions'
+        ])));
+
+        $response = RevenueCat::getCustomerActiveSubscription('test-user');
+
+        $this->assertNotNull($response);
+        $this->assertEquals('sub2', $response['id']);
+        $this->assertEquals('active', $response['status']);
+        $this->assertTrue($response['gives_access']);
+        $this->assertEquals('prod2', $response['product_id']);
+    }
+
+    #[Test]
+    public function it_returns_null_when_no_active_subscription()
+    {
+        $this->mockHandler->append(new Response(200, [], json_encode([
+            'items' => [
+                [
+                    'auto_renewal_status' => 'will_not_renew',
+                    'country' => 'US',
+                    'gives_access' => false,
+                    'id' => 'sub1',
+                    'status' => 'expired',
+                    'product_id' => 'prod1'
+                ]
+            ],
+            'next_page' => null,
+            'object' => 'list',
+            'url' => 'https://api.revenuecat.com/v2/projects/test/customers/test-user/subscriptions'
+        ])));
+
+        $response = RevenueCat::getCustomerActiveSubscription('test-user');
+
+        $this->assertNull($response);
     }
 
     #[Test]

@@ -91,11 +91,23 @@ class RevenueCat
 
     public function getUserSubscriptions(string $appUserId): array
     {
-        $customer = $this->getCustomer($appUserId);
+        // Use the dedicated active entitlements endpoint for better performance
+        $activeEntitlements = $this->getCustomerActiveEntitlements($appUserId);
 
-        return array_filter($customer['subscriber']['entitlements'] ?? [], function ($entitlement) {
-            return $entitlement['is_active'] ?? false;
-        });
+        return $activeEntitlements['items'] ?? [];
+    }
+
+    public function getCustomerActiveSubscription(string $appUserId): ?array
+    {
+        $subscriptions = $this->getCustomerSubscriptions($appUserId);
+
+        foreach ($subscriptions['items'] ?? [] as $subscription) {
+            if (($subscription['gives_access'] ?? false) === true) {
+                return $subscription;
+            }
+        }
+
+        return null;
     }
 
     public function getCustomerOffering(string $appUserId): array
