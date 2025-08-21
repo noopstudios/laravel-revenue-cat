@@ -88,9 +88,9 @@ class RevenueCat
         return $this->get($uri);
     }
 
-    public function getCustomerEntitlements(string $appUserId): array
+    public function getCustomerActiveEntitlements(string $appUserId): array
     {
-        return $this->get("/v2/projects/{$this->projectId}/customers/{$appUserId}/entitlements");
+        return $this->get("/v2/projects/{$this->projectId}/customers/{$appUserId}/active_entitlements");
     }
 
     public function getCustomerPurchases(string $appUserId): array
