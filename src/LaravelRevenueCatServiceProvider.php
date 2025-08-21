@@ -1,12 +1,12 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat;
+namespace NoopStudios\LaravelRevenueCat;
 
-use PeterSowah\LaravelCashierRevenueCat\Providers\RouteServiceProvider;
+use NoopStudios\LaravelRevenueCat\Providers\RouteServiceProvider;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class LaravelCashierRevenueCatServiceProvider extends PackageServiceProvider
+class LaravelRevenueCatServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,20 +16,20 @@ class LaravelCashierRevenueCatServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('laravel-cashier-revenue-cat')
-            ->hasConfigFile('cashier-revenue-cat')
+            ->name('laravel-revenue-cat')
+            ->hasConfigFile('revenue-cat')
             ->hasViews()
             ->hasMigrations([
                 'create_customers_table',
                 'create_subscriptions_table',
             ])
-            ->hasCommand(\PeterSowah\LaravelCashierRevenueCat\Commands\PublishWebhookHandlerCommand::class);
+            ->hasCommand(\NoopStudios\LaravelRevenueCat\Commands\PublishWebhookHandlerCommand::class);
     }
 
     public function packageRegistered(): void
     {
         $this->app->singleton(RevenueCat::class, function ($app) {
-            return new RevenueCat(config('cashier-revenue-cat.api.key'), config('cashier-revenue-cat.api.project_id'));
+            return new RevenueCat(config('revenue-cat.api.key'), config('revenue-cat.api.project_id'));
         });
 
         $this->app->alias(RevenueCat::class, 'revenuecat');

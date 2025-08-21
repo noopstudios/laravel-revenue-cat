@@ -1,6 +1,6 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Enums;
+namespace NoopStudios\LaravelRevenueCat\Enums;
 
 use InvalidArgumentException;
 

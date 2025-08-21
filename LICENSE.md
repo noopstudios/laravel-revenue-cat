@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) Peter Sowah <petersowah@gmail.com>
+Copyright (c) Fábio Ferreira <fabio.ferreira@noop.pt>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

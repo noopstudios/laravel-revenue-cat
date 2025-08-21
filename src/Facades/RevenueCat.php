@@ -1,6 +1,6 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Facades;
+namespace NoopStudios\LaravelRevenueCat\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -21,12 +21,12 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getSubscriptionName(array $entitlement)
  * @method static \GuzzleHttp\Client setClient(\GuzzleHttp\Client $client)
  *
- * @see \PeterSowah\LaravelCashierRevenueCat\RevenueCat
+ * @see \NoopStudios\LaravelRevenueCat\RevenueCat
  */
 class RevenueCat extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \PeterSowah\LaravelCashierRevenueCat\RevenueCat::class;
+        return \NoopStudios\LaravelRevenueCat\RevenueCat::class;
     }
 }

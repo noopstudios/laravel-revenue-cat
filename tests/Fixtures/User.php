@@ -1,17 +1,17 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Tests\Fixtures;
+namespace NoopStudios\LaravelRevenueCat\Tests\Fixtures;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use PeterSowah\LaravelCashierRevenueCat\Concerns\Billable;
+use NoopStudios\LaravelRevenueCat\Concerns\Billable;
 
 /**
  * @property int $id
  * @property string $name
  * @property string $email
- * @property \PeterSowah\LaravelCashierRevenueCat\Models\Customer $customer
- * @property \PeterSowah\LaravelCashierRevenueCat\Models\Subscription $subscriptions
+ * @property \NoopStudios\LaravelRevenueCat\Models\Customer $customer
+ * @property \NoopStudios\LaravelRevenueCat\Models\Subscription $subscriptions
  */
 class User extends Authenticatable
 {

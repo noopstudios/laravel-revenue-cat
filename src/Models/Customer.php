@@ -1,9 +1,9 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Models;
+namespace NoopStudios\LaravelRevenueCat\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use PeterSowah\LaravelCashierRevenueCat\Concerns\Billable;
+use NoopStudios\LaravelRevenueCat\Concerns\Billable;
 
 /**
  * @property string $revenuecat_id

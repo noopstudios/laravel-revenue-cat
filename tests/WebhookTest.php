@@ -1,9 +1,9 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Tests;
+namespace NoopStudios\LaravelRevenueCat\Tests;
 
 use Illuminate\Support\Facades\Event;
-use PeterSowah\LaravelCashierRevenueCat\Events\WebhookReceived;
+use NoopStudios\LaravelRevenueCat\Events\WebhookReceived;
 use PHPUnit\Framework\Attributes\Test;
 
 class WebhookTest extends TestCase
@@ -17,7 +17,7 @@ class WebhookTest extends TestCase
     protected function defineEnvironment($app)
     {
         parent::getEnvironmentSetUp($app);
-        $app['config']->set('cashier-revenue-cat.webhook.secret', 'test-secret');
+        $app['config']->set('revenue-cat.webhook.secret', 'test-secret');
         $app['config']->set('app.key', 'base64:'.base64_encode(random_bytes(32)));
     }
 
@@ -28,7 +28,7 @@ class WebhookTest extends TestCase
         $this->expectException(\Symfony\Component\HttpKernel\Exception\HttpException::class);
 
         $this->postJson(
-            route('cashier-revenue-cat.webhook'),
+            route('revenue-cat.webhook'),
             $this->getWebhookPayload(),
             ['Authorization' => 'Bearer invalid_secret']
         );
@@ -41,7 +41,7 @@ class WebhookTest extends TestCase
         $this->expectException(\Symfony\Component\HttpKernel\Exception\HttpException::class);
 
         $this->postJson(
-            route('cashier-revenue-cat.webhook'),
+            route('revenue-cat.webhook'),
             $this->getWebhookPayload()
         );
     }
@@ -52,9 +52,9 @@ class WebhookTest extends TestCase
         $payload = $this->getWebhookPayload();
 
         $this->postJson(
-            route('cashier-revenue-cat.webhook'),
+            route('revenue-cat.webhook'),
             $payload,
-            ['Authorization' => 'Bearer '.config('cashier-revenue-cat.webhook.secret')]
+            ['Authorization' => 'Bearer '.config('revenue-cat.webhook.secret')]
         );
 
         Event::assertDispatched(WebhookReceived::class, function ($event) {
@@ -96,7 +96,7 @@ class WebhookTest extends TestCase
 
     protected function generateSignature(string $content): string
     {
-        $secret = config('cashier-revenue-cat.webhook.secret');
+        $secret = config('revenue-cat.webhook.secret');
 
         return hash_hmac('sha256', $content, $secret);
     }

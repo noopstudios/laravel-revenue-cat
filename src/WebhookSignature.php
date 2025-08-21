@@ -1,6 +1,6 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat;
+namespace NoopStudios\LaravelRevenueCat;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
@@ -12,7 +12,7 @@ class WebhookSignature
      */
     public static function verify(string $payload, string $signature): bool
     {
-        $secret = Config::get('cashier-revenue-cat.webhook.secret');
+        $secret = Config::get('revenue-cat.webhook.secret');
 
         if (! $secret) {
             Log::error('Webhook secret not configured');

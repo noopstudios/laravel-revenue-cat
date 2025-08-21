@@ -1,9 +1,13 @@
-# Laravel Cashier RevenueCat
+# Laravel RevenueCat
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/petersowah/laravel-cashier-revenue-cat.svg?style=flat-square)](https://packagist.org/packages/petersowah/laravel-cashier-revenue-cat)
-[![Total Downloads](https://img.shields.io/packagist/dt/petersowah/laravel-cashier-revenue-cat.svg?style=flat-square)](https://packagist.org/packages/petersowah/laravel-cashier-revenue-cat)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/noopstudios/laravel-revenue-cat.svg?style=flat-square)](https://packagist.org/packages/noopstudios/laravel-revenue-cat)
+[![Total Downloads](https://img.shields.io/packagist/dt/noopstudios/laravel-revenue-cat.svg?style=flat-square)](https://packagist.org/packages/noopstudios/laravel-revenue-cat)
 
-A Laravel Cashier driver for RevenueCat, providing seamless integration with RevenueCat's subscription management platform for iOS and Android apps.
+A Laravel driver for RevenueCat, providing seamless integration with RevenueCat's subscription management platform for iOS and Android apps.
+
+## Credits
+
+This package is a fork of the original [laravel-revenue-cat](https://github.com/petersowah/laravel-revenue-cat) package created by [Peter Sowah](https://github.com/petersowah). All original development and foundational work is attributed to the original creator.
 
 ## Features
 
@@ -37,7 +41,7 @@ A Laravel Cashier driver for RevenueCat, providing seamless integration with Rev
 You can install the package via composer:
 
 ```bash
-composer require petersowah/laravel-cashier-revenue-cat
+composer require noopstudios/laravel-revenue-cat
 ```
 
 ## Route Registration
@@ -48,7 +52,7 @@ The package automatically registers its routes when installed. However, if you'r
 ```php
 'providers' => [
     // ...
-    PeterSowah\LaravelCashierRevenueCat\LaravelCashierRevenueCatServiceProvider::class,
+    NoopStudios\LaravelRevenueCat\LaravelRevenueCatServiceProvider::class,
 ],
 ```
 
@@ -64,7 +68,7 @@ php artisan cache:clear
 php artisan route:list | grep revenuecat
 ```
 
-You should see the webhook route listed with the name `cashier-revenue-cat.webhook`.
+You should see the webhook route listed with the name `revenue-cat.webhook`.
 
 ### Common Route Registration Issues
 
@@ -87,10 +91,10 @@ You should see the webhook route listed with the name `cashier-revenue-cat.webho
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=cashier-revenue-cat-config
+php artisan vendor:publish --tag=revenue-cat-config
 ```
 
-This will create a `config/cashier-revenue-cat.php` file in your config folder.
+This will create a `config/revenue-cat.php` file in your config folder.
 
 ### Environment Variables
 
@@ -258,7 +262,7 @@ If you set `REVENUECAT_ROUTE_GROUP=web`, the webhook route will be registered as
 POST webhook/revenuecat
 ```
 
-The route name will always be `cashier-revenue-cat.webhook` regardless of the group.
+The route name will always be `revenue-cat.webhook` regardless of the group.
 
 ## Mobile App Integration
 
@@ -462,7 +466,7 @@ REVENUECAT_WEBHOOK_SECRET=your_webhook_secret_here
 
    b. Create your own webhook handler:
    ```bash
-   php artisan cashier-revenue-cat:publish-webhook-handler
+   php artisan revenue-cat:publish-webhook-handler
    ```
    This will:
    - Publish the webhook handler to `app/Listeners/HandleRevenueCatWebhook.php`
@@ -509,7 +513,7 @@ REVENUECAT_WEBHOOK_SECRET=your_webhook_secret_here
 ```php
 // In your EventServiceProvider (app/Providers/EventServiceProvider.php)
 protected $listen = [
-    \PeterSowah\LaravelCashierRevenueCat\Events\WebhookReceived::class => [
+    \NoopStudios\LaravelRevenueCat\Events\WebhookReceived::class => [
         \App\Listeners\HandleRevenueCatWebhook::class,
     ],
 ];
@@ -521,7 +525,7 @@ protected $listen = [
 namespace App\Listeners;
 
 use Illuminate\Support\Facades\Log;
-use PeterSowah\LaravelCashierRevenueCat\Events\WebhookReceived;
+use NoopStudios\LaravelRevenueCat\Events\WebhookReceived;
 
 class HandleRevenueCatWebhook
 {
@@ -644,7 +648,7 @@ The package dispatches a `WebhookReceived` event for each webhook request. You c
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use PeterSowah\LaravelCashierRevenueCat\Events\WebhookReceived;
+use NoopStudios\LaravelRevenueCat\Events\WebhookReceived;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -673,7 +677,7 @@ php artisan make:listener HandleRevenueCatWebhook --event=WebhookReceived
 namespace App\Listeners;
 
 use Illuminate\Support\Facades\Log;
-use PeterSowah\LaravelCashierRevenueCat\Events\WebhookReceived;
+use NoopStudios\LaravelRevenueCat\Events\WebhookReceived;
 
 class HandleRevenueCatWebhook
 {
@@ -859,7 +863,7 @@ The package provides the following models:
 To use the package, add the `Billable` trait to your User model:
 
 ```php
-use PeterSowah\LaravelCashierRevenueCat\Concerns\Billable;
+use NoopStudios\LaravelRevenueCat\Concerns\Billable;
 
 class User extends Authenticatable
 {
@@ -878,10 +882,10 @@ This will give your User model access to the following relationships:
 The package can be configured by publishing the configuration file:
 
 ```bash
-php artisan vendor:publish --provider="PeterSowah\LaravelCashierRevenueCat\LaravelCashierRevenueCatServiceProvider" --tag="config"
+php artisan vendor:publish --provider="NoopStudios\LaravelRevenueCat\LaravelRevenueCatServiceProvider" --tag="config"
 ```
 
-This will create a `config/cashier-revenue-cat.php` file where you can configure:
+This will create a `config/revenue-cat.php` file where you can configure:
 
 - API Key
 - Project ID
@@ -908,7 +912,7 @@ The package dispatches the following events:
 The package provides a test case that you can use in your tests:
 
 ```php
-use PeterSowah\LaravelCashierRevenueCat\Tests\TestCase;
+use NoopStudios\LaravelRevenueCat\Tests\TestCase;
 
 class YourTest extends TestCase
 {

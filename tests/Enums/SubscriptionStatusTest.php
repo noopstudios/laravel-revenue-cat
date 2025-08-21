@@ -1,6 +1,6 @@
 <?php
 
-use PeterSowah\LaravelCashierRevenueCat\Enums\SubscriptionStatus;
+use NoopStudios\LaravelRevenueCat\Enums\SubscriptionStatus;
 
 test('it has correct string values', function () {
     expect(SubscriptionStatus::ACTIVE->value)->toBe('active')

@@ -1,6 +1,6 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Contracts;
+namespace NoopStudios\LaravelRevenueCat\Contracts;
 
 interface WebhookPayload
 {

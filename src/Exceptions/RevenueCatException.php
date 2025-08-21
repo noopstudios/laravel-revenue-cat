@@ -1,6 +1,6 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Exceptions;
+namespace NoopStudios\LaravelRevenueCat\Exceptions;
 
 use Exception;
 

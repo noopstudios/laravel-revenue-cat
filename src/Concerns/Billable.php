@@ -1,13 +1,13 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Concerns;
+namespace NoopStudios\LaravelRevenueCat\Concerns;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use PeterSowah\LaravelCashierRevenueCat\Enums\SubscriptionStatus;
-use PeterSowah\LaravelCashierRevenueCat\Models\Customer;
-use PeterSowah\LaravelCashierRevenueCat\Models\Subscription;
-use PeterSowah\LaravelCashierRevenueCat\RevenueCat;
+use NoopStudios\LaravelRevenueCat\Enums\SubscriptionStatus;
+use NoopStudios\LaravelRevenueCat\Models\Customer;
+use NoopStudios\LaravelRevenueCat\Models\Subscription;
+use NoopStudios\LaravelRevenueCat\RevenueCat;
 
 /**
  * @property-read Customer|null $customer

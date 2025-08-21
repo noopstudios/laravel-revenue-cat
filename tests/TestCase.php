@@ -1,11 +1,11 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Tests;
+namespace NoopStudios\LaravelRevenueCat\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as Orchestra;
-use PeterSowah\LaravelCashierRevenueCat\LaravelCashierRevenueCatServiceProvider;
-use PeterSowah\LaravelCashierRevenueCat\Tests\Fixtures\User;
+use NoopStudios\LaravelRevenueCat\LaravelRevenueCatServiceProvider;
+use NoopStudios\LaravelRevenueCat\Tests\Fixtures\User;
 
 abstract class TestCase extends Orchestra
 {
@@ -19,7 +19,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
-            LaravelCashierRevenueCatServiceProvider::class,
+            LaravelRevenueCatServiceProvider::class,
         ];
     }
 
@@ -44,7 +44,7 @@ abstract class TestCase extends Orchestra
     {
         return User::create([
             'email' => "{$description}@example.com",
-            'name' => 'Peter Sowah',
+            'name' => 'Fábio Ferreira',
         ]);
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Commands;
+namespace NoopStudios\LaravelRevenueCat\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
 class PublishWebhookHandlerCommand extends Command
 {
-    protected $signature = 'cashier-revenue-cat:publish-webhook-handler';
+    protected $signature = 'revenue-cat:publish-webhook-handler';
 
     protected $description = 'Publish the RevenueCat webhook handler and controller files';
 
@@ -38,7 +38,7 @@ class PublishWebhookHandlerCommand extends Command
 namespace App\Listeners;
 
 use Illuminate\Support\Facades\Log;
-use PeterSowah\LaravelCashierRevenueCat\Events\WebhookReceived;
+use NoopStudios\LaravelRevenueCat\Events\WebhookReceived;
 
 class HandleRevenueCatWebhook
 {
@@ -173,7 +173,7 @@ namespace App\Http\Controllers\RevenueCat;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use PeterSowah\LaravelCashierRevenueCat\Events\WebhookReceived;
+use NoopStudios\LaravelRevenueCat\Events\WebhookReceived;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class WebhookController
@@ -204,7 +204,7 @@ class WebhookController
         }
 
         // Verify the authorization header
-        $expectedAuth = 'Bearer '.config('cashier-revenue-cat.webhook.secret');
+        $expectedAuth = 'Bearer '.config('revenue-cat.webhook.secret');
         if ($authHeader !== $expectedAuth) {
             Log::warning('RevenueCat webhook authorization header invalid', [
                 'ip' => $request->ip(),
@@ -236,19 +236,19 @@ PHP;
 
     protected function updateConfig(): void
     {
-        $configPath = config_path('cashier-revenue-cat.php');
+        $configPath = config_path('revenue-cat.php');
 
         if (! File::exists($configPath)) {
             $this->warn('Configuration file not found. Please publish the configuration first using:');
-            $this->line('php artisan vendor:publish --tag=cashier-revenue-cat-config');
+            $this->line('php artisan vendor:publish --tag=revenue-cat-config');
 
             return;
         }
 
         $config = File::get($configPath);
         $config = str_replace(
-            '\\PeterSowah\\LaravelCashierRevenueCat\\Http\\Controllers\\WebhookController::class . \'@handleWebhook\'',
-            '\\App\\Http\\Controllers\\RevenueCat\\WebhookController::class . \'@handleWebhook\'',
+            '\\NoopStudios\\LaravelRevenueCat\\Http\\Controllers\\WebhookController::class',
+            '\\App\\Http\\Controllers\\RevenueCat\\WebhookController::class',
             $config
         );
 

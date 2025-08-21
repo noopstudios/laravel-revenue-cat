@@ -1,12 +1,12 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Models;
+namespace NoopStudios\LaravelRevenueCat\Models;
 
 use Carbon\Carbon;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use LogicException;
-use PeterSowah\LaravelCashierRevenueCat\Enums\SubscriptionStatus;
+use NoopStudios\LaravelRevenueCat\Enums\SubscriptionStatus;
 
 /**
  * @property string $name

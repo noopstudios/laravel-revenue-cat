@@ -1,12 +1,12 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Tests;
+namespace NoopStudios\LaravelRevenueCat\Tests;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use PeterSowah\LaravelCashierRevenueCat\Facades\RevenueCat;
+use NoopStudios\LaravelRevenueCat\Facades\RevenueCat;
 use PHPUnit\Framework\Attributes\Test;
 
 class RevenueCatTest extends TestCase

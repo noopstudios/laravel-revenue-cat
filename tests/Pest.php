@@ -1,5 +1,5 @@
 <?php
 
-use PeterSowah\LaravelCashierRevenueCat\Tests\TestCase;
+use NoopStudios\LaravelRevenueCat\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

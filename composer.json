@@ -1,20 +1,21 @@
 {
-    "name": "petersowah/laravel-cashier-revenue-cat",
+    "name": "noopstudios/laravel-revenue-cat",
     "description": "RevenueCat integration for Laravel to manage iOS and Android app subscriptions",
+    "version": "1.0.0",
     "keywords": [
-        "Peter Sowah",
+        "Fábio Ferreira",
         "laravel",
-        "laravel-cashier-revenue-cat",
+        "laravel-revenue-cat",
         "revenuecat",
         "subscriptions",
         "billing"
     ],
-    "homepage": "https://github.com/petersowah/laravel-cashier-revenue-cat",
+    "homepage": "https://github.com/noopstudios/laravel-revenue-cat",
     "license": "MIT",
     "authors": [
         {
-            "name": "Peter Sowah",
-            "email": "petersowah@gmail.com",
+            "name": "Fábio Ferreira",
+            "email": "fabio.ferreira@noop.pt",
             "role": "Developer"
         }
     ],
@@ -46,13 +47,13 @@
     },
     "autoload": {
         "psr-4": {
-            "PeterSowah\\LaravelCashierRevenueCat\\": "src/",
-            "PeterSowah\\LaravelCashierRevenueCat\\Database\\Factories\\": "database/factories/"
+            "NoopStudios\\LaravelRevenueCat\\": "src/",
+            "NoopStudios\\LaravelRevenueCat\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PeterSowah\\LaravelCashierRevenueCat\\Tests\\": "tests/",
+            "NoopStudios\\LaravelRevenueCat\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -75,10 +76,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "PeterSowah\\LaravelCashierRevenueCat\\LaravelCashierRevenueCatServiceProvider"
+                "NoopStudios\\LaravelRevenueCat\\LaravelRevenueCatServiceProvider"
             ],
             "aliases": {
-                "LaravelCashierRevenueCat": "PeterSowah\\LaravelCashierRevenueCat\\Facades\\LaravelCashierRevenueCat"
+                "LaravelRevenueCat": "NoopStudios\\LaravelRevenueCat\\Facades\\LaravelRevenueCat"
             }
         }
     },

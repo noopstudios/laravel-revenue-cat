@@ -1,6 +1,6 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Http\Middleware;
+namespace NoopStudios\LaravelRevenueCat\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class VerifyWebhookSignature
         }
 
         $payload = $request->getContent();
-        $secret = config('cashier-revenue-cat.webhook.secret');
+        $secret = config('revenue-cat.webhook.secret');
 
         if (! $secret) {
             abort(403, 'Webhook secret not configured');

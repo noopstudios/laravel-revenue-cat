@@ -1,6 +1,6 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Database\Factories;
+namespace NoopStudios\LaravelRevenueCat\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

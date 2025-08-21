@@ -1,10 +1,10 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat;
+namespace NoopStudios\LaravelRevenueCat;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\GuzzleException;
-use PeterSowah\LaravelCashierRevenueCat\Exceptions\RevenueCatException;
+use NoopStudios\LaravelRevenueCat\Exceptions\RevenueCatException;
 
 class RevenueCat
 {

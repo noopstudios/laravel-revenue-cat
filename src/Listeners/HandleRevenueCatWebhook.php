@@ -1,10 +1,10 @@
 <?php
 
-namespace PeterSowah\LaravelCashierRevenueCat\Http\Controllers;
+namespace NoopStudios\LaravelRevenueCat\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use PeterSowah\LaravelCashierRevenueCat\Events\WebhookReceived;
+use NoopStudios\LaravelRevenueCat\Events\WebhookReceived;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class RevenueCatWebhookController
