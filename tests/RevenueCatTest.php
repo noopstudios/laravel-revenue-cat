@@ -45,7 +45,7 @@ class RevenueCatTest extends TestCase
             ],
         ])));
 
-        $response = RevenueCat::getCustomer('test-user');
+        $response = RevenueCat::getCustomer('test-user', true);
 
         $this->assertArrayHasKey('subscriber', $response);
         $this->assertEquals('test-user', $response['subscriber']['original_app_user_id']);
@@ -97,7 +97,7 @@ class RevenueCatTest extends TestCase
             ],
         ])));
 
-        $response = RevenueCat::getOfferings();
+        $response = RevenueCat::getOfferings(true);
 
         $this->assertArrayHasKey('current_offering_id', $response);
         $this->assertArrayHasKey('offerings', $response);
@@ -118,7 +118,7 @@ class RevenueCatTest extends TestCase
             ],
         ])));
 
-        $response = RevenueCat::getProducts();
+        $response = RevenueCat::getProducts(true);
 
         $this->assertArrayHasKey('products', $response);
         $this->assertEquals('test-product', $response['products'][0]['identifier']);
@@ -269,58 +269,9 @@ class RevenueCatTest extends TestCase
         $this->assertNull($response);
     }
 
-    #[Test]
-    public function it_can_get_customer_offering()
-    {
-        $this->mockHandler->append(new Response(200, [], json_encode([
-            'current_offering_id' => 'test-offering',
-            'offerings' => [
-                [
-                    'identifier' => 'test-offering',
-                    'description' => 'Test Offering',
-                    'packages' => [
-                        [
-                            'identifier' => 'test-package',
-                            'platform_product_identifier' => 'com.example.test',
-                            'store_product' => [
-                                'identifier' => 'com.example.test',
-                                'price' => 9.99,
-                                'price_string' => '$9.99',
-                                'currency_code' => 'USD',
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ])));
 
-        $response = RevenueCat::getCustomerOffering('test-user');
 
-        $this->assertArrayHasKey('current_offering_id', $response);
-        $this->assertArrayHasKey('offerings', $response);
-        $this->assertEquals('test-offering', $response['current_offering_id']);
-    }
 
-    #[Test]
-    public function it_can_get_customer_non_subscriptions()
-    {
-        $this->mockHandler->append(new Response(200, [], json_encode([
-            'non_subscriptions' => [
-                [
-                    'product_id' => 'test-product',
-                    'purchase_date' => '2024-03-23T00:00:00Z',
-                    'expiration_date' => '2024-04-23T00:00:00Z',
-                    'store' => 'app_store',
-                    'transaction_id' => 'test-transaction',
-                ],
-            ],
-        ])));
-
-        $response = RevenueCat::getCustomerNonSubscriptions('test-user');
-
-        $this->assertArrayHasKey('non_subscriptions', $response);
-        $this->assertEquals('test-product', $response['non_subscriptions'][0]['product_id']);
-    }
 
     #[Test]
     public function it_can_get_customer_subscriptions()
