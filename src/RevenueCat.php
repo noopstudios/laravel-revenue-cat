@@ -43,9 +43,20 @@ class RevenueCat
         ]);
     }
 
-    public function getCustomer(string $appUserId): array
+    public function getCustomer(string $appUserId, bool $withAttributes = true, array $queryParams = []): array
     {
-        return $this->get("/v2/projects/{$this->projectId}/customers/{$appUserId}");
+        $uri = "/v2/projects/{$this->projectId}/customers/{$appUserId}";
+        $params = $queryParams;
+
+        if ($withAttributes) {
+            $params['expand'] = 'attributes';
+        }
+
+        if (!empty($params)) {
+            $uri .= '?' . http_build_query($params);
+        }
+
+        return $this->get($uri);
     }
 
     public function createCustomer(string $appUserId, array $attributes = []): array
@@ -63,21 +74,32 @@ class RevenueCat
         return $this->delete("/v2/projects/{$this->projectId}/customers/{$appUserId}");
     }
 
-    public function getOfferings(?string $appUserId = null): array
+    public function getCustomers(array $queryParams = []): array
     {
-        $uri = "/v2/projects/{$this->projectId}/offerings";
-        if ($appUserId) {
-            $uri .= "?app_user_id={$appUserId}";
+        $uri = "/v2/projects/{$this->projectId}/customers";
+        if (!empty($queryParams)) {
+            $uri .= '?' . http_build_query($queryParams);
         }
-
         return $this->get($uri);
     }
 
-    public function getProducts(): array
+    public function getCustomerAliases(string $appUserId, array $queryParams = []): array
     {
-        return $this->get("/v2/projects/{$this->projectId}/products");
+        $uri = "/v2/projects/{$this->projectId}/customers/{$appUserId}/aliases";
+        if (!empty($queryParams)) {
+            $uri .= '?' . http_build_query($queryParams);
+        }
+        return $this->get($uri);
     }
 
+    public function getCustomerAttributes(string $appUserId, array $queryParams = []): array
+    {
+        $uri = "/v2/projects/{$this->projectId}/customers/{$appUserId}/attributes";
+        if (!empty($queryParams)) {
+            $uri .= '?' . http_build_query($queryParams);
+        }
+        return $this->get($uri);
+    }
 
     public function getCustomerActiveEntitlements(string $appUserId): array
     {
@@ -88,6 +110,118 @@ class RevenueCat
     {
         return $this->get("/v2/projects/{$this->projectId}/customers/{$appUserId}/purchases");
     }
+
+    public function getCustomerSubscriptions(string $appUserId): array
+    {
+        return $this->get("/v2/projects/{$this->projectId}/customers/{$appUserId}/subscriptions");
+    }
+
+
+    public function getProduct(string $productId, bool $expand = true, array $queryParams = []): array
+    {
+        $uri = "/v2/projects/{$this->projectId}/products/{$productId}";
+        $params = $queryParams;
+
+        if ($expand) {
+            $params['expand'] = 'app';
+        }
+
+        if (!empty($params)) {
+            $uri .= '?' . http_build_query($params);
+        }
+
+        return $this->get($uri);
+    }
+
+    public function getProducts(bool $expand = true, array $queryParams = []): array
+    {
+        $uri = "/v2/projects/{$this->projectId}/products";
+        $params = $queryParams;
+
+        if ($expand) {
+            $params['expand'] = 'items.app';
+        }
+
+        if (!empty($params)) {
+            $uri .= '?' . http_build_query($params);
+        }
+
+        return $this->get($uri);
+    }
+
+    public function getOfferings(bool $expand = true, array $queryParams = []): array
+    {
+        $uri = "/v2/projects/{$this->projectId}/offerings";
+        $params = $queryParams;
+
+        if ($expand) {
+            $params['expand'] = 'items.package';
+        }
+
+        if (!empty($params)) {
+            $uri .= '?' . http_build_query($params);
+        }
+
+        return $this->get($uri);
+    }
+
+    public function getOffering(string $offeringId, bool $expand = true, array $queryParams = []): array
+    {
+        $uri = "/v2/projects/{$this->projectId}/offerings/{$offeringId}";
+        $params = $queryParams;
+
+        if ($expand) {
+            $params['expand'] = 'package';
+        }
+
+        if (!empty($params)) {
+            $uri .= '?' . http_build_query($params);
+        }
+
+        return $this->get($uri);
+    }
+
+    public function getEntitlements(bool $expand = true, array $queryParams = []): array
+    {
+        $uri = "/v2/projects/{$this->projectId}/entitlements";
+        $params = $queryParams;
+
+        if ($expand) {
+            $params['expand'] = 'items.product';
+        }
+
+        if (!empty($params)) {
+            $uri .= '?' . http_build_query($params);
+        }
+
+        return $this->get($uri);
+    }
+
+    public function getEntitlement(string $entitlementId, bool $expand = true, array $queryParams = []): array
+    {
+        $uri = "/v2/projects/{$this->projectId}/entitlements/{$entitlementId}";
+        $params = $queryParams;
+
+        if ($expand) {
+            $params['expand'] = 'product';
+        }
+
+        if (!empty($params)) {
+            $uri .= '?' . http_build_query($params);
+        }
+
+        return $this->get($uri);
+    }
+
+    public function getProductsFromEntitlement(string $entitlementId, array $queryParams = []): array
+    {
+        $uri = "/v2/projects/{$this->projectId}/entitlements/{$entitlementId}/products";
+        if (!empty($queryParams)) {
+            $uri .= '?' . http_build_query($queryParams);
+        }
+        return $this->get($uri);
+    }
+
 
     public function getUserSubscriptions(string $appUserId): array
     {
@@ -108,21 +242,6 @@ class RevenueCat
         }
 
         return null;
-    }
-
-    public function getCustomerOffering(string $appUserId): array
-    {
-        return $this->get("/v2/projects/{$this->projectId}/customers/{$appUserId}/offerings");
-    }
-
-    public function getCustomerNonSubscriptions(string $appUserId): array
-    {
-        return $this->get("/v2/projects/{$this->projectId}/customers/{$appUserId}/non_subscriptions");
-    }
-
-    public function getCustomerSubscriptions(string $appUserId): array
-    {
-        return $this->get("/v2/projects/{$this->projectId}/customers/{$appUserId}/subscriptions");
     }
 
     /**
