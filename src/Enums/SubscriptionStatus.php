@@ -80,4 +80,25 @@ enum SubscriptionStatus: string
             default => throw new InvalidArgumentException("Unknown webhook event type: {$event['type']}"),
         };
     }
+
+    /**
+     * Get the status from a RevenueCat API v2 webhook event
+     *
+     * @throws InvalidArgumentException
+     */
+    public static function fromAPIV2(string $status): self
+    {
+        return match (strtolower($status)) {
+            'trialing' => self::TRIAL,
+            'trial' => self::TRIAL,
+            'active' => self::ACTIVE,
+            'expired' => self::EXPIRED,
+            'in_grace_period' => self::GRACE_PERIOD,
+            'in_billing_retry' => self::GRACE_PERIOD,
+            'paused' => self::PAUSED,
+            'unknown' => self::EXPIRED,
+            'incomplete' => self::EXPIRED,
+            default => throw new InvalidArgumentException("Unknown status: {$status}"),
+        };
+    }
 }
