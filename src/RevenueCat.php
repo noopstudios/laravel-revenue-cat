@@ -52,8 +52,8 @@ class RevenueCat
             $params['expand'] = 'attributes';
         }
 
-        if (!empty($params)) {
-            $uri .= '?' . http_build_query($params);
+        if (! empty($params)) {
+            $uri .= '?'.http_build_query($params);
         }
 
         return $this->get($uri);
@@ -77,27 +77,30 @@ class RevenueCat
     public function getCustomers(array $queryParams = []): array
     {
         $uri = "/v2/projects/{$this->projectId}/customers";
-        if (!empty($queryParams)) {
-            $uri .= '?' . http_build_query($queryParams);
+        if (! empty($queryParams)) {
+            $uri .= '?'.http_build_query($queryParams);
         }
+
         return $this->get($uri);
     }
 
     public function getCustomerAliases(string $appUserId, array $queryParams = []): array
     {
         $uri = "/v2/projects/{$this->projectId}/customers/{$appUserId}/aliases";
-        if (!empty($queryParams)) {
-            $uri .= '?' . http_build_query($queryParams);
+        if (! empty($queryParams)) {
+            $uri .= '?'.http_build_query($queryParams);
         }
+
         return $this->get($uri);
     }
 
     public function getCustomerAttributes(string $appUserId, array $queryParams = []): array
     {
         $uri = "/v2/projects/{$this->projectId}/customers/{$appUserId}/attributes";
-        if (!empty($queryParams)) {
-            $uri .= '?' . http_build_query($queryParams);
+        if (! empty($queryParams)) {
+            $uri .= '?'.http_build_query($queryParams);
         }
+
         return $this->get($uri);
     }
 
@@ -116,7 +119,6 @@ class RevenueCat
         return $this->get("/v2/projects/{$this->projectId}/customers/{$appUserId}/subscriptions");
     }
 
-
     public function getProduct(string $productId, bool $expand = true, array $queryParams = []): array
     {
         $uri = "/v2/projects/{$this->projectId}/products/{$productId}";
@@ -126,8 +128,8 @@ class RevenueCat
             $params['expand'] = 'app';
         }
 
-        if (!empty($params)) {
-            $uri .= '?' . http_build_query($params);
+        if (! empty($params)) {
+            $uri .= '?'.http_build_query($params);
         }
 
         return $this->get($uri);
@@ -142,8 +144,8 @@ class RevenueCat
             $params['expand'] = 'items.app';
         }
 
-        if (!empty($params)) {
-            $uri .= '?' . http_build_query($params);
+        if (! empty($params)) {
+            $uri .= '?'.http_build_query($params);
         }
 
         return $this->get($uri);
@@ -158,8 +160,8 @@ class RevenueCat
             $params['expand'] = 'items.package';
         }
 
-        if (!empty($params)) {
-            $uri .= '?' . http_build_query($params);
+        if (! empty($params)) {
+            $uri .= '?'.http_build_query($params);
         }
 
         return $this->get($uri);
@@ -174,8 +176,8 @@ class RevenueCat
             $params['expand'] = 'package';
         }
 
-        if (!empty($params)) {
-            $uri .= '?' . http_build_query($params);
+        if (! empty($params)) {
+            $uri .= '?'.http_build_query($params);
         }
 
         return $this->get($uri);
@@ -190,8 +192,8 @@ class RevenueCat
             $params['expand'] = 'items.product';
         }
 
-        if (!empty($params)) {
-            $uri .= '?' . http_build_query($params);
+        if (! empty($params)) {
+            $uri .= '?'.http_build_query($params);
         }
 
         return $this->get($uri);
@@ -206,8 +208,8 @@ class RevenueCat
             $params['expand'] = 'product';
         }
 
-        if (!empty($params)) {
-            $uri .= '?' . http_build_query($params);
+        if (! empty($params)) {
+            $uri .= '?'.http_build_query($params);
         }
 
         return $this->get($uri);
@@ -216,12 +218,12 @@ class RevenueCat
     public function getProductsFromEntitlement(string $entitlementId, array $queryParams = []): array
     {
         $uri = "/v2/projects/{$this->projectId}/entitlements/{$entitlementId}/products";
-        if (!empty($queryParams)) {
-            $uri .= '?' . http_build_query($queryParams);
+        if (! empty($queryParams)) {
+            $uri .= '?'.http_build_query($queryParams);
         }
+
         return $this->get($uri);
     }
-
 
     public function getUserSubscriptions(string $appUserId): array
     {

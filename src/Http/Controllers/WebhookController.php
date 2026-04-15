@@ -3,6 +3,7 @@
 namespace NoopStudios\LaravelRevenueCat\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use NoopStudios\LaravelRevenueCat\Events\WebhookReceived;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -12,7 +13,7 @@ class WebhookController
     /**
      * Handle incoming RevenueCat webhook requests.
      */
-    public function handleWebhook(Request $request): \Illuminate\Http\Response
+    public function handleWebhook(Request $request): Response
     {
         $payload = $request->all();
 

@@ -2,6 +2,7 @@
 
 namespace NoopStudios\LaravelRevenueCat;
 
+use NoopStudios\LaravelRevenueCat\Commands\PublishWebhookHandlerCommand;
 use NoopStudios\LaravelRevenueCat\Providers\RouteServiceProvider;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -23,7 +24,7 @@ class LaravelRevenueCatServiceProvider extends PackageServiceProvider
                 'create_customers_table',
                 'create_subscriptions_table',
             ])
-            ->hasCommand(\NoopStudios\LaravelRevenueCat\Commands\PublishWebhookHandlerCommand::class);
+            ->hasCommand(PublishWebhookHandlerCommand::class);
     }
 
     public function packageRegistered(): void

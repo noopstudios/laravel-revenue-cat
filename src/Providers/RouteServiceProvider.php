@@ -2,6 +2,7 @@
 
 namespace NoopStudios\LaravelRevenueCat\Providers;
 
+use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,8 +36,8 @@ class RouteServiceProvider extends ServiceProvider
                     config('revenue-cat.webhook.endpoint', 'webhook/revenuecat'),
                     function () {
                         $handler = config('revenue-cat.webhook.handler');
-                        if (class_exists(\App\Http\Controllers\WebhookController::class)) {
-                            return app(\App\Http\Controllers\WebhookController::class)->handleWebhook(request());
+                        if (class_exists(WebhookController::class)) {
+                            return app(WebhookController::class)->handleWebhook(request());
                         }
 
                         return app(\NoopStudios\LaravelRevenueCat\Http\Controllers\WebhookController::class)->handleWebhook(request());

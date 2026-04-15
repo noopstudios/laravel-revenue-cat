@@ -5,6 +5,7 @@ namespace NoopStudios\LaravelRevenueCat\Tests;
 use Illuminate\Support\Facades\Event;
 use NoopStudios\LaravelRevenueCat\Events\WebhookReceived;
 use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class WebhookTest extends TestCase
 {
@@ -25,7 +26,7 @@ class WebhookTest extends TestCase
     public function it_validates_webhook_signature()
     {
         $this->withoutExceptionHandling();
-        $this->expectException(\Symfony\Component\HttpKernel\Exception\HttpException::class);
+        $this->expectException(HttpException::class);
 
         $this->postJson(
             route('revenue-cat.webhook'),
@@ -38,7 +39,7 @@ class WebhookTest extends TestCase
     public function it_rejects_webhook_without_signature()
     {
         $this->withoutExceptionHandling();
-        $this->expectException(\Symfony\Component\HttpKernel\Exception\HttpException::class);
+        $this->expectException(HttpException::class);
 
         $this->postJson(
             route('revenue-cat.webhook'),

@@ -177,12 +177,12 @@ class RevenueCatTest extends TestCase
                 [
                     'entitlement_id' => 'premium',
                     'expires_at' => 1755778147000,
-                    'object' => 'customer.active_entitlement'
-                ]
+                    'object' => 'customer.active_entitlement',
+                ],
             ],
             'next_page' => null,
             'object' => 'list',
-            'url' => 'https://api.revenuecat.com/v2/projects/test/customers/test-user/active_entitlements'
+            'url' => 'https://api.revenuecat.com/v2/projects/test/customers/test-user/active_entitlements',
         ])));
 
         $response = RevenueCat::getUserSubscriptions('test-user');
@@ -208,7 +208,7 @@ class RevenueCatTest extends TestCase
                     'gives_access' => false,
                     'id' => 'sub1',
                     'status' => 'expired',
-                    'product_id' => 'prod1'
+                    'product_id' => 'prod1',
                 ],
                 [
                     'auto_renewal_status' => 'will_renew',
@@ -220,20 +220,20 @@ class RevenueCatTest extends TestCase
                         'items' => [
                             [
                                 'id' => 'entl123',
-                                'lookup_key' => 'Pro'
-                            ]
-                        ]
+                                'lookup_key' => 'Pro',
+                            ],
+                        ],
                     ],
                     'environment' => 'sandbox',
                     'gives_access' => true,
                     'id' => 'sub2',
                     'status' => 'active',
-                    'product_id' => 'prod2'
-                ]
+                    'product_id' => 'prod2',
+                ],
             ],
             'next_page' => null,
             'object' => 'list',
-            'url' => 'https://api.revenuecat.com/v2/projects/test/customers/test-user/subscriptions'
+            'url' => 'https://api.revenuecat.com/v2/projects/test/customers/test-user/subscriptions',
         ])));
 
         $response = RevenueCat::getCustomerActiveSubscription('test-user');
@@ -256,22 +256,18 @@ class RevenueCatTest extends TestCase
                     'gives_access' => false,
                     'id' => 'sub1',
                     'status' => 'expired',
-                    'product_id' => 'prod1'
-                ]
+                    'product_id' => 'prod1',
+                ],
             ],
             'next_page' => null,
             'object' => 'list',
-            'url' => 'https://api.revenuecat.com/v2/projects/test/customers/test-user/subscriptions'
+            'url' => 'https://api.revenuecat.com/v2/projects/test/customers/test-user/subscriptions',
         ])));
 
         $response = RevenueCat::getCustomerActiveSubscription('test-user');
 
         $this->assertNull($response);
     }
-
-
-
-
 
     #[Test]
     public function it_can_get_customer_subscriptions()

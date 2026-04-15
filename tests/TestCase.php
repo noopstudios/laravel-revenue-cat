@@ -3,9 +3,9 @@
 namespace NoopStudios\LaravelRevenueCat\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Orchestra\Testbench\TestCase as Orchestra;
 use NoopStudios\LaravelRevenueCat\LaravelRevenueCatServiceProvider;
 use NoopStudios\LaravelRevenueCat\Tests\Fixtures\User;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {

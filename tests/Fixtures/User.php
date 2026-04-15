@@ -5,13 +5,15 @@ namespace NoopStudios\LaravelRevenueCat\Tests\Fixtures;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use NoopStudios\LaravelRevenueCat\Concerns\Billable;
+use NoopStudios\LaravelRevenueCat\Models\Customer;
+use NoopStudios\LaravelRevenueCat\Models\Subscription;
 
 /**
  * @property int $id
  * @property string $name
  * @property string $email
- * @property \NoopStudios\LaravelRevenueCat\Models\Customer $customer
- * @property \NoopStudios\LaravelRevenueCat\Models\Subscription $subscriptions
+ * @property Customer $customer
+ * @property Subscription $subscriptions
  */
 class User extends Authenticatable
 {

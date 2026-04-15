@@ -1,61 +1,162 @@
 <?php
 
-namespace NoopStudios\LaravelRevenueCat\Http\Controllers;
+namespace NoopStudios\LaravelRevenueCat\Listeners;
 
-use Illuminate\Http\Request;
+use Exception;
 use Illuminate\Support\Facades\Log;
 use NoopStudios\LaravelRevenueCat\Events\WebhookReceived;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class RevenueCatWebhookController
+class HandleRevenueCatWebhook
 {
     /**
-     * Handle incoming RevenueCat webhook requests.
+     * Handle the webhook event.
+     *
+     * @throws Exception
      */
-    public function handleWebhook(Request $request): \Illuminate\Http\Response
+    public function handle(WebhookReceived $event): void
     {
-        $payload = $request->all();
+        /** @var array<string, mixed> $payload */
+        $payload = $event->payload;
+        $type = $payload['event']['type'];
 
-        // Log the incoming webhook request
         Log::info('RevenueCat webhook received', [
-            'ip' => $request->ip(),
-            'user_agent' => $request->userAgent(),
-            'event_type' => $payload['event']['type'] ?? 'unknown',
-            'event_id' => $payload['event']['id'] ?? null,
+            'type' => $type,
+            'payload' => $payload,
         ]);
 
-        $authHeader = $request->header('Authorization');
-
-        if (! $authHeader) {
-            Log::warning('RevenueCat webhook authorization header missing', [
-                'ip' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-            ]);
-            throw new HttpException(401, 'Missing authorization header');
+        switch ($type) {
+            case 'INITIAL_PURCHASE':
+                $this->handleInitialPurchase($payload);
+                break;
+            case 'RENEWAL':
+                $this->handleRenewal($payload);
+                break;
+            case 'CANCELLATION':
+                $this->handleCancellation($payload);
+                break;
+            case 'NON_RENEWING_PURCHASE':
+                $this->handleNonRenewingPurchase($payload);
+                break;
+            case 'SUBSCRIPTION_PAUSED':
+                $this->handleSubscriptionPaused($payload);
+                break;
+            case 'SUBSCRIPTION_RESUMED':
+                $this->handleSubscriptionResumed($payload);
+                break;
+            case 'PRODUCT_CHANGE':
+                $this->handleProductChange($payload);
+                break;
+            case 'BILLING_ISSUE':
+                $this->handleBillingIssue($payload);
+                break;
+            case 'REFUND':
+                $this->handleRefund($payload);
+                break;
+            case 'SUBSCRIPTION_PERIOD_CHANGED':
+                $this->handleSubscriptionPeriodChanged($payload);
+                break;
         }
+    }
 
-        // Verify the authorization header
-        $expectedAuth = 'Bearer '.config('revenuecat.webhook.secret');
-        if ($authHeader !== $expectedAuth) {
-            Log::warning('RevenueCat webhook authorization header invalid', [
-                'ip' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'received' => $authHeader,
-                'expected' => $expectedAuth,
-            ]);
-            throw new HttpException(401, 'Invalid authorization header');
-        }
+    /**
+     * Handle the initial purchase event.
+     *
+     * @param  array<string, mixed>  $payload
+     *
+     * @throws Exception
+     */
+    protected function handleInitialPurchase(array $payload): void
+    {
+        Log::info('Handling initial purchase', ['payload' => $payload]);
+    }
 
-        // Log successful webhook processing
-        Log::info('RevenueCat webhook processed successfully', [
-            'event_type' => $payload['event']['type'] ?? 'unknown',
-            'event_id' => $payload['event']['id'] ?? null,
-            'subscriber_id' => $payload['event']['subscriber']['id'] ?? null,
-            'product_id' => $payload['event']['product']['id'] ?? null,
-        ]);
+    /**
+     * Handle renewal event.
+     *
+     * @param  array<string, mixed>  $payload
+     */
+    protected function handleRenewal(array $payload): void
+    {
+        Log::info('Handling renewal', ['payload' => $payload]);
+    }
 
-        event(new WebhookReceived($payload));
+    /**
+     * Handle cancellation event.
+     *
+     * @param  array<string, mixed>  $payload
+     */
+    protected function handleCancellation(array $payload): void
+    {
+        Log::info('Handling cancellation', ['payload' => $payload]);
+    }
 
-        return response('', 200);
+    /**
+     * Handle non-renewing purchase event.
+     *
+     * @param  array<string, mixed>  $payload
+     */
+    protected function handleNonRenewingPurchase(array $payload): void
+    {
+        Log::info('Handling non-renewing purchase', ['payload' => $payload]);
+    }
+
+    /**
+     * Handle subscription paused event.
+     *
+     * @param  array<string, mixed>  $payload
+     */
+    protected function handleSubscriptionPaused(array $payload): void
+    {
+        Log::info('Handling subscription paused', ['payload' => $payload]);
+    }
+
+    /**
+     * Handle subscription resumed event.
+     *
+     * @param  array<string, mixed>  $payload
+     */
+    protected function handleSubscriptionResumed(array $payload): void
+    {
+        Log::info('Handling subscription resumed', ['payload' => $payload]);
+    }
+
+    /**
+     * Handle product change event.
+     *
+     * @param  array<string, mixed>  $payload
+     */
+    protected function handleProductChange(array $payload): void
+    {
+        Log::info('Handling product change', ['payload' => $payload]);
+    }
+
+    /**
+     * Handle billing issue event.
+     *
+     * @param  array<string, mixed>  $payload
+     */
+    protected function handleBillingIssue(array $payload): void
+    {
+        Log::info('Handling billing issue', ['payload' => $payload]);
+    }
+
+    /**
+     * Handle refund event.
+     *
+     * @param  array<string, mixed>  $payload
+     */
+    protected function handleRefund(array $payload): void
+    {
+        Log::info('Handling refund', ['payload' => $payload]);
+    }
+
+    /**
+     * Handle subscription period changed event.
+     *
+     * @param  array<string, mixed>  $payload
+     */
+    protected function handleSubscriptionPeriodChanged(array $payload): void
+    {
+        Log::info('Handling subscription period changed', ['payload' => $payload]);
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Auth\User;
+use NoopStudios\LaravelRevenueCat\Http\Controllers\WebhookController;
+
 // config for NoopStudios/LaravelRevenueCat
 return [
     /*
@@ -33,7 +36,7 @@ return [
         'endpoint' => env('REVENUECAT_WEBHOOK_ENDPOINT', 'webhook/revenuecat'),
         'route_group' => env('REVENUECAT_ROUTE_GROUP', 'web'),
         'route_middleware' => env('REVENUECAT_WEBHOOK_ROUTE_MIDDLEWARE', 'web'),
-        'handler' => env('REVENUECAT_WEBHOOK_HANDLER', \NoopStudios\LaravelRevenueCat\Http\Controllers\WebhookController::class),
+        'handler' => env('REVENUECAT_WEBHOOK_HANDLER', WebhookController::class),
         'allowed_ips' => env('REVENUECAT_WEBHOOK_ALLOWED_IPS', ''),
         'rate_limit' => [
             'enabled' => env('REVENUECAT_WEBHOOK_RATE_LIMIT_ENABLED', true),
@@ -113,6 +116,6 @@ return [
 
     'currency' => env('REVENUECAT_CURRENCY', 'USD'),
     'model' => [
-        'user' => env('REVENUECAT_USER_MODEL', \Illuminate\Foundation\Auth\User::class),
+        'user' => env('REVENUECAT_USER_MODEL', User::class),
     ],
 ];
